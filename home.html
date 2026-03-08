@@ -12,7 +12,7 @@
 <body>
     <main class=" w-11/12 mx-auto">
         <header>
-            <nav class=" flex justify-between items-center py-4">
+            <nav class=" flex flex-col sm:flex-row justify-between items-center py-4 ">
                 <div class=" flex gap-1">
                     <img class="w-8" src="./assets/github-logo.png" alt="">
                     <p class="text-2xl font-semibold text-[#1F2937]">GitHub Issues Tracker</p>
@@ -66,7 +66,7 @@
                 </section>
                 <!-- all issues -->
                 <section class="shadow-sm mb-5 p-6 rounded-lg bg-[#FBFBFB]">
-                    <div id="all_issues" class="grid grid-cols-4 gap-3">
+                    <div id="all_issues" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-3">
 
                     </div>
                     <!-- loding -->
@@ -75,6 +75,12 @@
                     </div>
                 </section>
 
+                <section>
+                    <!-- Open the modal using ID.showModal() method -->
+                    <dialog id="issue_details_model" class="modal">
+
+                    </dialog>
+                </section>
             </section>
         </div>
     </main>
