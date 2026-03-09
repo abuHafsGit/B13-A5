@@ -2,10 +2,51 @@
 
 const all_issues = document.getElementById('all_issues')
 const loding_spiner = document.getElementById('loding_spiner')
+const issue_details_model = document.getElementById('issue_details_model')
+
 const closed_btn = document.getElementById('closed_btn')
 const open_btn = document.getElementById('open_btn')
 const all_btn = document.getElementById('all_btn')
-const issue_details_model = document.getElementById('issue_details_model')
+
+const open_issue = document.getElementById('open_issue')
+const closed_issue = document.getElementById('closed_issue')
+
+let currentStatus = 'all'
+
+const toggleBtn = (id) => {
+    all_btn.classList.add('bg-[#4A00FF]', 'text-white')
+    open_btn.classList.add('bg-[#4A00FF]', 'text-white')
+    closed_btn.classList.add('bg-[#4A00FF]', 'text-white')
+
+    all_btn.classList.remove('bg-[#4A00FF]', 'text-white')
+    open_btn.classList.remove('bg-[#4A00FF]', 'text-white')
+    closed_btn.classList.remove('bg-[#4A00FF]', 'text-white')
+
+    const selectBtn = document.getElementById(id)
+    selectBtn.classList.add('bg-[#4A00FF]', 'text-white')
+    console.log(selectBtn)
+
+    currentStatus = id
+    console.log(currentStatus)
+
+    if (id == 'closed_btn') {
+        console.log('this is close')
+        all_issues.classList.add('hidden')
+        open_issue.classList.add('hidden')
+        closed_issue.classList.remove('hidden')
+    } else if (id == 'open_btn') {
+        console.log('open this')
+        openIssue()
+        all_issues.classList.add('hidden')
+        closed_issue.classList.add('hidden')
+        open_issue.classList.remove('hidden')
+    } else if (id == 'all_btn') {
+        all_issues.classList.remove('hidden')
+        open_issue.classList.add('hidden')
+        closed_issue.classList.add('hidden')
+    }
+}
+
 
 
 const showLoding = () => {
@@ -25,6 +66,8 @@ const fetchAllIssue = async () => {
     const data = await res.json()
     // console.log(data)
     displayIssue(data)
+    openIssue(data)
+    closedIssue(data)
 
     hideLoding()
 }
@@ -133,7 +176,7 @@ const displayModal = async (issueDetails) => {
                                         <div>
                                             <p class=" text-[#64748B] text-base">Priority:</p>
                                             <button
-                                                class="bg-red-500 text-white w-20 h-6 text-center rounded-xl uppercase text-[12px]">
+                                                class="bg-red-500 text-white w-20 h-6 text-center rounded-xl uppercase text-[8px]">
                                                 ${priority}</button>
                                         </div>
                                     </div>
@@ -152,24 +195,24 @@ const displayModal = async (issueDetails) => {
 }
 
 
+const openIssue = (openIssue) => {
+    const div = document.createElement('div')
+    open_issue.innerHTML = ''
+    div.innerHTML = 'open'
 
-const fetchSingleIssue = async () => {
-    showLoding()
+    // console.log(openIssue.data)
+    openIssue?.data?.map((open) => {
+        // console.log(open.status == 'open')
+        if (open.status === 'open') {
+            div.innerHTML = `${open.title}`
+        }
+    })
 
-    const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues ")
-    const data = await res.json()
-    // console.log(data)
-    displayIssue(data)
-
-    hideLoding()
+    open_issue.append(div)
 }
-const fetchSearchIssue = async () => {
-    showLoding()
-
-    const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues ")
-    const data = await res.json()
-    // console.log(data)
-    displayIssue(data)
-
-    hideLoding()
+const closedIssue = () => {
+    const div = document.createElement('div')
+    open_issue.innerHTML = ''
+    div.innerHTML = 'close'
+    // open_issue.append(div)
 }

@@ -12,7 +12,6 @@ document.getElementById('login').addEventListener('click', () => {
     console.log(userName, userPassword)
 
     if (userName == 'admin' && userPassword == 'admin123') {
-        alert("login")
         // window.location.replace('/home.html')
         window.location.assign('/home.html')
     } else {

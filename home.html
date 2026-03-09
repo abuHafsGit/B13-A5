@@ -30,18 +30,19 @@
                 </div>
             </nav>
         </header>
-        <div class=" container mx-auto lg:px-40 bg-[#F8FAFC] py-15">
-            <section class=" shadow-sm mb-5 p-6 rounded-lg bg-white">
-                <button id="all_btn"
-                    class="w-[120px] h-[40px] text-center bg-[#4A00FF] text-white border border-[#64748B]  text-gray-500 text-base font-semibold py-2 px-3 rounded-lg cursor-pointer">All
+        <div class=" container mx-auto lg:px-40 bg-[#F8FAFC] lg:py-15">
+            <section class=" shadow-sm mb-5 p-6 rounded-lg bg-white flex gap-2">
+                <button onclick="toggleBtn(id)" id="all_btn"
+                    class="w-[120px] h-[40px] text-center bg-[#4A00FF] text-white text-gray-500 border border-[#64748B] text-base font-semibold py-2 px-3 rounded-lg cursor-pointer">All
                 </button>
-                <button id="open_btn"
+                <button onclick="toggleBtn(id)" id="open_btn"
                     class="w-[120px] h-[40px]  border border-[#64748B]  text-gray-500 text-base font-semibold py-2 px-3 rounded-lg cursor-pointer">Open
                 </button>
-                <button id="closed_btn"
+                <button onclick="toggleBtn(id)" id="closed_btn"
                     class="w-[120px] h-[40px]  border border-[#64748B]  text-gray-500 text-base font-semibold py-2 px-3 rounded-lg cursor-pointer">Closed
                 </button>
             </section>
+
             <section>
                 <section class="flex justify-between items-center shadow-sm mb-5 p-6 rounded-lg bg-white">
                     <div class=" flex justify-center items-center gap-1">
@@ -64,8 +65,9 @@
                         </div>
                     </div>
                 </section>
-                <!-- all issues -->
+
                 <section class="shadow-sm mb-5 p-6 rounded-lg bg-[#FBFBFB]">
+                    <!-- all issues -->
                     <div id="all_issues" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-3">
 
                     </div>
@@ -73,6 +75,15 @@
                     <div id="loding_spiner" class=" hidden justify-center items-center h-[60vh]">
                         <span class="loading loading-spinner loading-xl"></span>
                     </div>
+                    <!-- open issue -->
+                    <div id="open_issue">
+                        open
+                    </div>
+                    <!-- closed issue  -->
+                    <div id="closed_issue">
+                        closed
+                    </div>
+
                 </section>
 
                 <section>
