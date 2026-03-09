@@ -13,7 +13,7 @@ document.getElementById('login').addEventListener('click', () => {
 
     if (userName == 'admin' && userPassword == 'admin123') {
         // window.location.replace('/home.html')
-        window.location.assign('/home.html')
+        window.location.assign('./pages/home.html')
     } else {
         alert('invaild pass and number')
     }

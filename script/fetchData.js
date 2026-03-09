@@ -140,7 +140,7 @@ const displayIssue = (issues) => {
         Card.innerHTML = `
                         <div class=" space-y-3 ">
                             <div class="flex justify-between items-center">
-                                <img src="./assets/Open-Status.png" alt="">
+                                <img src="../assets/Open-Status.png" alt="">
                                 <div class="bg-[#FEECEC] text-red-500 w-20 h-6 text-center rounded-xl">
                                     <p class=" uppercase">${priority}</p>
                                 </div>
@@ -151,12 +151,12 @@ const displayIssue = (issues) => {
                                 <div class="flex gap-2 items-center">
                                     <div
                                         class=" flex bg-[#FEECEC] px-2 py-1 rounded-2xl gap-1 justify-center items-center border-2 border-[#FECACA]">
-                                        <div><img src="./assets/BugDroid.png" alt=""></div>
+                                        <div><img src="../assets/BugDroid.png" alt=""></div>
                                         <p class="text-[#EF4444] bg-[#] uppercase text-[8px]">${labels[0]}</p>
                                     </div>
                                     <div
                                         class=" flex bg-[#FFF8DB] px-2 py-1 rounded-2xl gap-1 justify-center items-center border-2 border-[#FDE68A]">
-                                        <div><img src="./assets/Lifebuoy.png" alt=""></div>
+                                        <div><img src="../assets/Lifebuoy.png" alt=""></div>
                                         <p class="text-[#D97706] bg-[#] uppercase text-[8px]">${labels[1]}</p>
                                     </div>
                                 </div>
@@ -206,7 +206,7 @@ const displayModal = async (issueDetails) => {
                                     <div class="flex gap-2 items-center">
                                         <div
                                             class=" flex bg-[#FEECEC] px-2 py-1 rounded-2xl gap-1 justify-center items-center border-2 border-[#FECACA]">
-                                            <div><img src="./assets/BugDroid.png" alt=""></div>
+                                            <div><img src="../assets/BugDroid.png" alt=""></div>
                                             <p class="text-[#EF4444] bg-[#] uppercase text-[8px]">${labels[0]}</p>
                                         </div>
                                         <div
@@ -263,7 +263,7 @@ const openIssue = (issues) => {
             openDiv.innerHTML = `
                 <div class="space-y-3">
                     <div class="flex justify-between items-center">
-                        <img src="./assets/Open-Status.png" alt="">
+                        <img src="../assets/Open-Status.png" alt="">
                         <div class="bg-[#FEECEC] text-red-500 w-20 h-6 text-center rounded-xl">
                             <p class="uppercase">${open.priority}</p>
                         </div>
@@ -275,12 +275,12 @@ const openIssue = (issues) => {
 
                         <div class="flex gap-2 items-center">
                             <div class="flex bg-[#FEECEC] px-2 py-1 rounded-2xl gap-1 items-center border-2 border-[#FECACA]">
-                                <img src="./assets/BugDroid.png" alt="">
+                                <img src="../assets/BugDroid.png" alt="">
                                 <p class="text-[#EF4444] uppercase text-[8px]">${open.labels[0] ?? ''}</p>
                             </div>
 
                             <div class="flex bg-[#FFF8DB] px-2 py-1 rounded-2xl gap-1 items-center border-2 border-[#FDE68A]">
-                                <img src="./assets/Lifebuoy.png" alt="">
+                                <img src="../assets/Lifebuoy.png" alt="">
                                 <p class="text-[#D97706] uppercase text-[8px]">${open.labels[1] ?? ''}</p>
                             </div>
                         </div>
@@ -324,7 +324,7 @@ const closedIssue = (closeIssues) => {
             closeDiv.innerHTML = `
                 <div class="space-y-3">
                     <div class="flex justify-between items-center">
-                        <img src="./assets/Open-Status.png" alt="">
+                        <img src="../assets/Open-Status.png" alt="">
                         <div class="bg-[#FEECEC] text-red-500 w-20 h-6 text-center rounded-xl">
                             <p class="uppercase">${close.priority}</p>
                         </div>
@@ -336,12 +336,12 @@ const closedIssue = (closeIssues) => {
 
                         <div class="flex gap-2 items-center">
                             <div class="flex bg-[#FEECEC] px-2 py-1 rounded-2xl gap-1 items-center border-2 border-[#FECACA]">
-                                <img src="./assets/BugDroid.png" alt="">
+                                <img src="../assets/BugDroid.png" alt="">
                                 <p class="text-[#EF4444] uppercase text-[8px]">${close.labels[0] ?? ''}</p>
                             </div>
 
                             <div class="flex bg-[#FFF8DB] px-2 py-1 rounded-2xl gap-1 items-center border-2 border-[#FDE68A]">
-                                <img src="./assets/Lifebuoy.png" alt="">
+                                <img src="../assets/Lifebuoy.png" alt="">
                                 <p class="text-[#D97706] uppercase text-[8px]">${close.labels[1] ?? ''}</p>
                             </div>
                         </div>
