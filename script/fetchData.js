@@ -13,6 +13,9 @@ const closed_issue = document.getElementById('closed_issue')
 
 let currentStatus = 'all'
 
+// open_issue.classList.add('hidden')
+// closed_issue.classList.add('hidden')
+
 const toggleBtn = (id) => {
     all_btn.classList.add('bg-[#4A00FF]', 'text-white')
     open_btn.classList.add('bg-[#4A00FF]', 'text-white')
@@ -22,6 +25,8 @@ const toggleBtn = (id) => {
     open_btn.classList.remove('bg-[#4A00FF]', 'text-white')
     closed_btn.classList.remove('bg-[#4A00FF]', 'text-white')
 
+
+
     const selectBtn = document.getElementById(id)
     selectBtn.classList.add('bg-[#4A00FF]', 'text-white')
     console.log(selectBtn)
@@ -30,16 +35,21 @@ const toggleBtn = (id) => {
     console.log(currentStatus)
 
     if (id == 'closed_btn') {
+
         console.log('this is close')
         all_issues.classList.add('hidden')
         open_issue.classList.add('hidden')
+        closedIssue()
         closed_issue.classList.remove('hidden')
+        fetchClose()
     } else if (id == 'open_btn') {
         console.log('open this')
-        openIssue()
+
         all_issues.classList.add('hidden')
         closed_issue.classList.add('hidden')
+        openIssue()
         open_issue.classList.remove('hidden')
+        fethcOpen()
     } else if (id == 'all_btn') {
         all_issues.classList.remove('hidden')
         open_issue.classList.add('hidden')
@@ -66,12 +76,39 @@ const fetchAllIssue = async () => {
     const data = await res.json()
     // console.log(data)
     displayIssue(data)
-    openIssue(data)
+    // openIssue(data)
     closedIssue(data)
 
     hideLoding()
 }
 fetchAllIssue()
+
+const fethcOpen = async () => {
+    showLoding()
+
+    const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues ")
+    const data = await res.json()
+    // console.log(data)
+    displayIssue(data)
+    openIssue(data)
+    // closedIssue(data)
+
+    hideLoding()
+}
+
+const fetchClose = async () => {
+    showLoding()
+
+    const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues ")
+    const data = await res.json()
+    // console.log(data)
+    displayIssue(data)
+    closedIssue(data)
+    closedIssue(data)
+
+    hideLoding()
+}
+
 
 
 
@@ -195,24 +232,61 @@ const displayModal = async (issueDetails) => {
 }
 
 
-const openIssue = (openIssue) => {
-    const div = document.createElement('div')
-    open_issue.innerHTML = ''
-    div.innerHTML = 'open'
 
-    // console.log(openIssue.data)
-    openIssue?.data?.map((open) => {
-        // console.log(open.status == 'open')
+const openIssue = (issues) => {
+    open_issue.innerHTML = '';
+
+    issues?.data?.forEach((open) => {
+
         if (open.status === 'open') {
-            div.innerHTML = `${open.title}`
-        }
-    })
+            const date = new Date(open.createdAt)
+            const formattedDate = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
+            const formattedTime = + date.getHours() + ":" + date.getMinutes();
+            const openDiv = document.createElement('div');
 
-    open_issue.append(div)
-}
-const closedIssue = () => {
-    const div = document.createElement('div')
-    open_issue.innerHTML = ''
-    div.innerHTML = 'close'
-    // open_issue.append(div)
-}
+            openDiv.className = `bg-white p-4 shadow-lg rounded-lg cursor-pointer border-t-4 border-[#00A96E]`;
+
+            openDiv.innerHTML = `
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <img src="./assets/Open-Status.png" alt="">
+                        <div class="bg-[#FEECEC] text-red-500 w-20 h-6 text-center rounded-xl">
+                            <p class="uppercase">${open.priority}</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openTreeModal(${open.id})" class="space-y-3">
+                        <h1 class="font-semibold text-[14px] line-clamp-1">${open.title}</h1>
+                        <p class="text-[#64748B] text-[12px] line-clamp-2">${open.description}</p>
+
+                        <div class="flex gap-2 items-center">
+                            <div class="flex bg-[#FEECEC] px-2 py-1 rounded-2xl gap-1 items-center border-2 border-[#FECACA]">
+                                <img src="./assets/BugDroid.png" alt="">
+                                <p class="text-[#EF4444] uppercase text-[8px]">${open.labels[0] ?? ''}</p>
+                            </div>
+
+                            <div class="flex bg-[#FFF8DB] px-2 py-1 rounded-2xl gap-1 items-center border-2 border-[#FDE68A]">
+                                <img src="./assets/Lifebuoy.png" alt="">
+                                <p class="text-[#D97706] uppercase text-[8px]">${open.labels[1] ?? ''}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="text-[#E4E4E7]">
+
+                    <div>
+                        <p class="text-[#64748B] text-[12px]">${open.author}</p>
+                        <p class="text-[#64748B] text-[12px]">Date: ${formattedDate}</p>
+                        <p class="text-[#64748B] text-[12px]">Time: ${formattedTime}</p>
+                    </div>
+                </div>
+            `;
+            console.log(formattedDate)
+            open_issue.append(openDiv);
+        }
+    });
+};
+
+
+
+
