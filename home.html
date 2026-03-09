@@ -44,7 +44,7 @@
             </section>
 
             <section>
-                <section class="flex justify-between items-center shadow-sm mb-5 p-6 rounded-lg bg-white">
+                <!-- <section class="flex justify-between items-center shadow-sm mb-5 p-6 rounded-lg bg-white">
                     <div class=" flex justify-center items-center gap-1">
                         <div class=" w-12 h-12 bg-[#ECE4FF] flex justify-center items-center rounded-full">
                             <img src="./assets/Aperture.png" alt="">
@@ -64,24 +64,96 @@
                             <div class=" font-medium text-base">Closed</div>
                         </div>
                     </div>
-                </section>
+                </section> -->
 
                 <section class="shadow-sm mb-5 p-6 rounded-lg bg-[#FBFBFB]">
                     <!-- all issues -->
-                    <div id="all_issues" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-3">
+                    <div>
+                        <section id="all_issue_count" class="flex justify-between items-center shadow-sm mb-5 p-6 rounded-lg bg-white">
+                            <div class=" flex justify-center items-center gap-1">
+                                <div class=" w-12 h-12 bg-[#ECE4FF] flex justify-center items-center rounded-full">
+                                    <img src="./assets/Aperture.png" alt="">
+                                </div>
+                                <div>
+                                    <h3 class=" font-semibold text-[20px]">50 Issues</h3>
+                                    <p class="text-[#64748B] text-base">Track and manage your project issues</p>
+                                </div>
+                            </div>
+                            <div class=" flex gap-2">
+                                <div class=" flex justify-center items-center gap-1 ">
+                                    <div class="w-3 h-3 rounded-full bg-[#00A96E]"></div>
+                                    <div class=" font-medium text-base">Open</div>
+                                </div>
+                                <div class=" flex justify-center items-center gap-1 ">
+                                    <div class="w-3 h-3 rounded-full bg-purple-700"></div>
+                                    <div class=" font-medium text-base">Closed</div>
+                                </div>
+                            </div>
+                        </section>
+                        <div id="all_issues"
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-3">
 
+                        </div>
                     </div>
                     <!-- loding -->
                     <div id="loding_spiner" class=" hidden justify-center items-center h-[60vh]">
                         <span class="loading loading-spinner loading-xl"></span>
                     </div>
                     <!-- open issue -->
-                    <div id="open_issue" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-3">
+                    <div>
+                        <section id="open_issue_count" class="flex justify-between items-center shadow-sm mb-5 p-6 rounded-lg bg-white">
+                            <div class=" flex justify-center items-center gap-1">
+                                <div class=" w-12 h-12 bg-[#ECE4FF] flex justify-center items-center rounded-full">
+                                    <img src="./assets/Aperture.png" alt="">
+                                </div>
+                                <div>
+                                    <h3 class=" font-semibold text-[20px]">44 Open Issues</h3>
+                                    <p class="text-[#64748B] text-base">Track and manage your project issues</p>
+                                </div>
+                            </div>
+                            <div class=" flex gap-2">
+                                <div class=" flex justify-center items-center gap-1 ">
+                                    <div class="w-3 h-3 rounded-full bg-[#00A96E]"></div>
+                                    <div class=" font-medium text-base">Open</div>
+                                </div>
+                                <div class=" flex justify-center items-center gap-1 ">
+                                    <div class="w-3 h-3 rounded-full bg-purple-700"></div>
+                                    <div class=" font-medium text-base">Closed</div>
+                                </div>
+                            </div>
+                        </section>
+                        <div id="open_issue"
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-3">
 
+                        </div>
                     </div>
                     <!-- closed issue  -->
-                    <div id="closed_issue" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-3">
+                    <div>
+                        <section class="flex justify-between items-center shadow-sm mb-5 p-6 rounded-lg bg-white">
+                            <div class=" flex justify-center items-center gap-1">
+                                <div class=" w-12 h-12 bg-[#ECE4FF] flex justify-center items-center rounded-full">
+                                    <img src="./assets/Aperture.png" alt="">
+                                </div>
+                                <div>
+                                    <h3 class=" font-semibold text-[20px]">8 Closed Issues</h3>
+                                    <p class="text-[#64748B] text-base">Track and manage your project issues</p>
+                                </div>
+                            </div>
+                            <div class=" flex gap-2">
+                                <div class=" flex justify-center items-center gap-1 ">
+                                    <div class="w-3 h-3 rounded-full bg-[#00A96E]"></div>
+                                    <div class=" font-medium text-base">Open</div>
+                                </div>
+                                <div class=" flex justify-center items-center gap-1 ">
+                                    <div class="w-3 h-3 rounded-full bg-purple-700"></div>
+                                    <div class=" font-medium text-base">Closed</div>
+                                </div>
+                            </div>
+                        </section>
+                        <div id="closed_issue"
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-3">
 
+                        </div>
                     </div>
 
                 </section>

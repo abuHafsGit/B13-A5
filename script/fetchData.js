@@ -11,6 +11,9 @@ const all_btn = document.getElementById('all_btn')
 const open_issue = document.getElementById('open_issue')
 const closed_issue = document.getElementById('closed_issue')
 
+const all_issue_count = document.getElementById('all_issue_count')
+const open_issue_count = document.getElementById('open_issue_count')
+
 let currentStatus = 'all'
 
 // open_issue.classList.add('hidden')
@@ -42,6 +45,8 @@ const toggleBtn = (id) => {
         closedIssue()
         closed_issue.classList.remove('hidden')
         fetchClose()
+        all_issue_count.classList.add('hidden')
+        open_issue_count.classList.add('hidden')
     } else if (id == 'open_btn') {
         console.log('open this')
 
@@ -50,10 +55,14 @@ const toggleBtn = (id) => {
         openIssue()
         open_issue.classList.remove('hidden')
         fethcOpen()
+        all_issue_count.classList.add("hidden")
+        open_issue_count.classList.remove('hidden')
     } else if (id == 'all_btn') {
         all_issues.classList.remove('hidden')
         open_issue.classList.add('hidden')
         closed_issue.classList.add('hidden')
+        all_issue_count.classList.remove('hidden')
+        open_issue_count.classList.add('hidden')
     }
 }
 
@@ -237,6 +246,7 @@ const openIssue = (issues) => {
     open_issue.innerHTML = '';
 
     issues?.data?.forEach((open) => {
+        console.log('letth open' + open.status.id)
 
         if (open.status === 'open') {
             const date = new Date(open.createdAt)
@@ -244,7 +254,7 @@ const openIssue = (issues) => {
             const formattedTime = + date.getHours() + ":" + date.getMinutes();
             const openDiv = document.createElement('div');
 
-            openDiv.className = `bg-white p-4 shadow-lg rounded-lg cursor-pointer border-t-4 border-[#00A96E]`;
+            openDiv.className = `bg-white p-4 shadow-lg rounded-lg cursor-pointer ${open.status == 'open' ? 'border-t-4 border-[#00A96E]' : 'border-t-4 border-purple-700'}`;
 
             openDiv.innerHTML = `
                 <div class="space-y-3">
@@ -283,6 +293,7 @@ const openIssue = (issues) => {
             `;
             console.log(formattedDate)
             open_issue.append(openDiv);
+
         }
     });
 };
@@ -290,3 +301,57 @@ const openIssue = (issues) => {
 
 
 
+const closedIssue = (closeIssues) => {
+    closed_issue.innerHTML = '';
+
+    closeIssues?.data?.forEach((close) => {
+        console.log('letth close ' + close.status.length)
+        if (close.status === 'closed') {
+            const date = new Date(close.createdAt)
+            const formattedDate = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
+            const formattedTime = + date.getHours() + ":" + date.getMinutes();
+            const openDiv = document.createElement('div');
+            const closeDiv = document.createElement('div');
+
+            closeDiv.className = `bg-white p-4 shadow-lg rounded-lg cursor-pointer ${close.status == 'open' ? 'border-t-4 border-[#00A96E]' : 'border-t-4 border-purple-700'}`;
+
+            closeDiv.innerHTML = `
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <img src="./assets/Open-Status.png" alt="">
+                        <div class="bg-[#FEECEC] text-red-500 w-20 h-6 text-center rounded-xl">
+                            <p class="uppercase">${close.priority}</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openTreeModal(${close.id})" class="space-y-3">
+                        <h1 class="font-semibold text-[14px] line-clamp-1">${close.title}</h1>
+                        <p class="text-[#64748B] text-[12px] line-clamp-2">${open.description}</p>
+
+                        <div class="flex gap-2 items-center">
+                            <div class="flex bg-[#FEECEC] px-2 py-1 rounded-2xl gap-1 items-center border-2 border-[#FECACA]">
+                                <img src="./assets/BugDroid.png" alt="">
+                                <p class="text-[#EF4444] uppercase text-[8px]">${close.labels[0] ?? ''}</p>
+                            </div>
+
+                            <div class="flex bg-[#FFF8DB] px-2 py-1 rounded-2xl gap-1 items-center border-2 border-[#FDE68A]">
+                                <img src="./assets/Lifebuoy.png" alt="">
+                                <p class="text-[#D97706] uppercase text-[8px]">${close.labels[1] ?? ''}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="text-[#E4E4E7]">
+
+                    <div>
+                        <p class="text-[#64748B] text-[12px]">${close.author}</p>
+                        <p class="text-[#64748B] text-[12px]">Date: ${formattedDate}</p>
+                        <p class="text-[#64748B] text-[12px]">Time: ${formattedTime}</p>
+                    </div>
+                </div>
+            `;
+
+            closed_issue.append(closeDiv);
+        }
+    });
+}
