@@ -10,14 +10,32 @@ const all_btn = document.getElementById('all_btn')
 
 const open_issue = document.getElementById('open_issue')
 const closed_issue = document.getElementById('closed_issue')
-
-const all_issue_count = document.getElementById('all_issue_count')
-const open_issue_count = document.getElementById('open_issue_count')
+const issue_count = document.getElementById('issue_count')
 
 let currentStatus = 'all'
 
+
+const input_search = document.getElementById('input_search')
+const btn_search = document.getElementById('btn_search')
+
+//search fuctionality
+document.getElementById('btn_search').addEventListener('click', async () => {
+    const input = document.getElementById('input_search')
+    const searchValue = input.value.trim().toLowerCase()
+    console.log(searchValue)
+
+    const res = await fetch(` https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`)
+
+    const data = await res.json()
+    all_issues.innerHTML = ''
+
+    displayIssue(data)
+    console.log(data.data.length)
+    issue_count.innerText = data.data.length
+    input.value = ''
+})
 // open_issue.classList.add('hidden')
-// closed_issue.classList.add('hidden')
+closed_issue.classList.add('hidden')
 
 const toggleBtn = (id) => {
     all_btn.classList.add('bg-[#4A00FF]', 'text-white')
@@ -45,8 +63,6 @@ const toggleBtn = (id) => {
         closedIssue()
         closed_issue.classList.remove('hidden')
         fetchClose()
-        all_issue_count.classList.add('hidden')
-        open_issue_count.classList.add('hidden')
     } else if (id == 'open_btn') {
         console.log('open this')
 
@@ -55,14 +71,11 @@ const toggleBtn = (id) => {
         openIssue()
         open_issue.classList.remove('hidden')
         fethcOpen()
-        all_issue_count.classList.add("hidden")
-        open_issue_count.classList.remove('hidden')
     } else if (id == 'all_btn') {
         all_issues.classList.remove('hidden')
         open_issue.classList.add('hidden')
         closed_issue.classList.add('hidden')
-        all_issue_count.classList.remove('hidden')
-        open_issue_count.classList.add('hidden')
+        fetchAllIssue()
     }
 }
 
@@ -83,11 +96,10 @@ const fetchAllIssue = async () => {
 
     const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues ")
     const data = await res.json()
-    // console.log(data)
     displayIssue(data)
-    // openIssue(data)
     closedIssue(data)
-
+    // console.log(data.data.length)
+    issue_count.innerText = data.data.length
     hideLoding()
 }
 fetchAllIssue()
@@ -97,7 +109,6 @@ const fethcOpen = async () => {
 
     const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues ")
     const data = await res.json()
-    // console.log(data)
     displayIssue(data)
     openIssue(data)
     // closedIssue(data)
@@ -110,21 +121,15 @@ const fetchClose = async () => {
 
     const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues ")
     const data = await res.json()
-    // console.log(data)
     displayIssue(data)
     closedIssue(data)
     closedIssue(data)
-
     hideLoding()
 }
 
 
-
-
 const displayIssue = (issues) => {
-    // console.log(issues)
     issues?.data?.map((issue) => {
-        // console.log(issue)
         const { id, title, description, status, labels, priority, author, assignee, createdAt, updatedAt } = issue
         const date = new Date(createdAt)
         const formattedDate = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
@@ -169,11 +174,9 @@ const displayIssue = (issues) => {
 }
 
 const openTreeModal = async (issueId) => {
-    console.log(issueId)
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${issueId}`)
     issue_details_model.innerHTML = ''
     const data = await res.json()
-    console.log(data)
     const issueDetails = data.data
     // console.log(issueDetail)
     issue_details_model.showModal()
@@ -183,7 +186,6 @@ const openTreeModal = async (issueId) => {
 }
 
 const displayModal = async (issueDetails) => {
-    console.log(issueDetails.id)
     const details = document.createElement('div')
     const { id, title, description, status, labels, priority, author, assignee, createdAt, updatedAt } = issueDetails
     const date = new Date(createdAt)
@@ -246,9 +248,11 @@ const openIssue = (issues) => {
     open_issue.innerHTML = '';
 
     issues?.data?.forEach((open) => {
-        console.log('letth open' + open.status.id)
-
+        const openCount = issues?.data?.filter(issue => issue.status === 'open').length;
+        // console.log(openCount);
+        issue_count.innerText = openCount
         if (open.status === 'open') {
+
             const date = new Date(open.createdAt)
             const formattedDate = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
             const formattedTime = + date.getHours() + ":" + date.getMinutes();
@@ -291,9 +295,7 @@ const openIssue = (issues) => {
                     </div>
                 </div>
             `;
-            console.log(formattedDate)
             open_issue.append(openDiv);
-
         }
     });
 };
@@ -305,7 +307,11 @@ const closedIssue = (closeIssues) => {
     closed_issue.innerHTML = '';
 
     closeIssues?.data?.forEach((close) => {
-        console.log('letth close ' + close.status.length)
+
+        const openCount = closeIssues?.data?.filter(issue => issue.status === 'closed').length;
+        // console.log(openCount);
+        issue_count.innerText = openCount
+
         if (close.status === 'closed') {
             const date = new Date(close.createdAt)
             const formattedDate = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
@@ -326,7 +332,7 @@ const closedIssue = (closeIssues) => {
 
                     <div onclick="openTreeModal(${close.id})" class="space-y-3">
                         <h1 class="font-semibold text-[14px] line-clamp-1">${close.title}</h1>
-                        <p class="text-[#64748B] text-[12px] line-clamp-2">${open.description}</p>
+                        <p class="text-[#64748B] text-[12px] line-clamp-2">${close.description}</p>
 
                         <div class="flex gap-2 items-center">
                             <div class="flex bg-[#FEECEC] px-2 py-1 rounded-2xl gap-1 items-center border-2 border-[#FECACA]">
@@ -355,3 +361,4 @@ const closedIssue = (closeIssues) => {
         }
     });
 }
+
